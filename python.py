@@ -1,2 +1,2 @@
-name = "Shivam"
-print(name)
+harsh = "Shivam"
+print(harsh)
