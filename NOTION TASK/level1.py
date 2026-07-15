@@ -21,9 +21,9 @@
 
 
 
-number=int(input("Enter Number:"))
-print("Number + 10=",number+10)
-print("Number * 5=",number*5)
+# number=int(input("Enter Number:"))
+# print("Number + 10=",number+10)
+# print("Number * 5=",number*5)
 
 
 
