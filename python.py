@@ -1,2 +1,0 @@
-d = "harsh"
-print(d)
