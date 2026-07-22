@@ -189,6 +189,84 @@
 
 # print("Output:", result)
 
- 
+#########################################################################
 
 
+# Other Notion Task
+
+
+# Task 1
+
+# words = ["apple", "banana", "cherry"]
+
+# count = 0
+
+# for word in words:
+#     for ch in word:
+#         if ch in "aeiouAEIOU":
+#             count += 1
+
+# print("Total Vowels:", count)
+
+
+
+# Task 2
+
+# word = ["Helo","Harsh"]
+
+# result = []
+
+# for word in word:
+#     result.append(word[::-1])
+
+# print(result)
+
+
+# Task 3
+
+
+# word = ["cat", "elephant", "dog"]
+
+# longest = word[0]
+
+# for word in word:
+#     if len(word) > len(longest):
+#         longest = word
+
+# print("Longest Word:", longest)
+
+
+
+# Task 4
+
+# word = ["Apple","Pooolo"]
+
+# result = []
+
+# for i in word:
+#     newword=""
+
+#     for j in i:
+#         if j not in newword:
+#                 newword=newword+j
+#     result.append(newword)
+
+# print(result)            
+
+
+# Task 5
+
+# word = ["apple", "dog", "elephant"]
+
+# result = []
+
+# for i in word:
+#     if i[0] in "aeiouAEIOU":
+#         result.append(i)
+# print(result)
+
+
+
+
+
+            
