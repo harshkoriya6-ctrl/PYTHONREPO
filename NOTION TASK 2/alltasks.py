@@ -267,6 +267,35 @@
 
 
 
+# Task 6
+
+# word = ["Pyhton", "Is", "fun"]
+# result = " ".join(word)
+# print(result)
+
+
+
+# Task 7
+
+# words = ["bella", "label", "roller"]
+# result = ""
+
+# for ch in words[0]:
+#     found = True
+
+#     for word in words:
+#         if ch not in word:
+#             found = False
+#             break
+
+#     if found and ch not in result:
+#         result = result + ch
+
+# print(list(result))
+
+
+# Task 8
+
 
 
             
