@@ -51,7 +51,7 @@ Subjects   : {", ".join(s['sub'])}
                 """)
 
     elif choice == 3:
-
+    
         sid = input("Enter Student ID: ")
         found = False
 
