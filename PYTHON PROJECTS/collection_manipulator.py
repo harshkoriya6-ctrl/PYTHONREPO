@@ -51,7 +51,7 @@ Subjects   : {", ".join(s['sub'])}
                 """)
 
     elif choice == 3:
-    
+      
         sid = input("Enter Student ID: ")
         found = False
 
@@ -100,7 +100,7 @@ Subjects   : {", ".join(s['sub'])}
         print(", ".join(all_subjects))
 
     elif choice == 6:
-        print("Exit The Code")
+        print("Exit From Student Data Organizer")
         break
 
 
