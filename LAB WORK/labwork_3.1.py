@@ -82,7 +82,7 @@
 # for i in tex:
 #     if i.isalpha():
 #         result = result + i
-
+    
 # print(result)        
 
 
