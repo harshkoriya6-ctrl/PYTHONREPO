@@ -18,8 +18,6 @@ class Employee():
     
 
     
-
-
 print("---- Pyhton OOP Project: Employee Management System ----")
 while True:
     print("Choose an Operation:")
@@ -31,4 +29,8 @@ while True:
 5. Exit 
 """)
     choice = int(input("Enter Your choice"))
+
+    if choice == 1:
+         
+         
     

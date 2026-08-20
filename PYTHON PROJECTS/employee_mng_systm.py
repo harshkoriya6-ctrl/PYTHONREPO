@@ -20,12 +20,17 @@ class Employee():
         print("Employee Name: ",self.name)
         print("Salary: ",self.__salary)
 
+    def work(self):
+        print(f"{self.name} is working")
+
 
 class Developer(Employee):
 
     def __init__(self, name, id, salary,programming_language):
         super().__init__(name,id,salary)
         self.programming_language = programming_language
+
+    def work(self):
         print(f"{self.name} is Working on {self.programming_language}")
 
     def display_info(self):
@@ -40,6 +45,9 @@ class Manager(Employee):
         self.team_size = team_size
         self.expr = expr
 
+    def work(self):
+        print(f"Manager is managing team with {self.team_size} employee")
+
     def display_info(self):
         super().details_employee()
         print("Team size:",self.team_size)
@@ -52,6 +60,9 @@ class Trainer():
         self.expertise = expertise
     def conduct_tranning(self):
         print(f"Conducting Training on {self.expertise}")
+
+    def display_info(self):
+        print("Expertise",self.expertise)
     def work(self):
         print("Gives Training of Python Programming Laguage to new Joiny")
 
@@ -77,16 +88,14 @@ developer = Developer("Nihar",19225,25000,"Python")
 manager = Manager("Harsh",19525, 200000, 5, 10)
 trainer = Trainer("Pyhton Programming")
 seniorDeveloper = SeniorDeveloper("Harry",12455,300000,"Python","System Acrhitecture",9)
-print("\nDeveloper Details:")
-developer.display_info()
-print("\nManager Details:")
-manager.display_info()
-print("\nTrainner:")
-trainer.conduct_tranning()
-trainer.work()
-print("\nSenior Developer:")
-seniorDeveloper.display_info()
-seniorDeveloper.work()
+employee = [developer, manager, trainer, seniorDeveloper]
+
+for i in employee:
+    print("""
+""")
+    i.display_info()
+    i.work()
+print(SeniorDeveloper.mro())
 
 
 
