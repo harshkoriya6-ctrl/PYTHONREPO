@@ -50,24 +50,24 @@ ar1d = [10, 20, 30, 40, 50]
 # QUE 6
 
 
-value = int(input("Enter Value to Search: "))
+# value = int(input("Enter Value to Search: "))
 
-if value in ar1d:
-    print("Element Found at Index:", ar1d.index(value))
-else:
-    print("Element Not Found")
+# if value in ar1d:
+#     print("Element Found at Index:", ar1d.index(value))
+# else:
+#     print("Element Not Found")
 
 
 
 # QUE 7
 
-arr2 = [40, 50, 60]
+# arr2 = [40, 50, 60]
 
-arr3 = ar1d + arr2
+# arr3 = ar1d + arr2
 
-print("First Array :", ar1d)
-print("Second Array:", arr2)
-print("Combined Array:", arr3)
+# print("First Array :", ar1d)
+# print("Second Array:", arr2)
+# print("Combined Array:", arr3)
 
 
 
