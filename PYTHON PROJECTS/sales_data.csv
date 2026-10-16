@@ -1,0 +1,10 @@
+
+SalesID,Product,Region,Sales,Year
+1,Laptop,North,50000,2025
+2,Phone,South,25000,2025
+3,Tablet,East,15000,2025
+4,Laptop,West,48000,2026
+5,Phone,North,27000,2026
+6,Tablet,South,18000,2026
+7,Laptop,East,52000,2026
+8,Phone,West,30000,2026
