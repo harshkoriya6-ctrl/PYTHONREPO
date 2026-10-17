@@ -12,13 +12,21 @@ class SalesDataAnalyzer:
     """
 
     def __init__(self):
-        """Initializes the analyzer with empty dataset variables."""
+        """
+        Initializes the analyzer with empty dataset variables.
+        Sets the primary and secondary DataFrames to None.
+        Initializes the figure variable for storing visualizations.
+        """
         self.df = None
         self.other_df = None
         self.fig = None
 
     def load_dataset(self):
-        """Loads a CSV dataset and displays its first five rows."""
+        """
+        Accepts the CSV file path from the user.
+        Loads the dataset and displays its first five rows.
+        Handles file, parsing, permission, and other loading errors..
+        """
         path = input("Enter CSV file path: ").strip()
 
         try:
@@ -32,7 +40,11 @@ class SalesDataAnalyzer:
             print("Error:", e)
 
     def explore_data(self):
-        """Displays dataset rows, columns, types, information and statistics."""
+        """
+        Displays options for exploring the loaded dataset.
+        Shows rows, columns, data types, information, and statistics.
+        Provides dataset dimensions and a menu to return to the main menu.
+        """
         if not self.check_data():
             return
 
@@ -69,7 +81,11 @@ class SalesDataAnalyzer:
                 print("Invalid choice")
 
     def clean_data(self):
-        """Cleans missing values and duplicates and converts column types."""
+        """
+        Displays missing values and provides data-cleaning options.
+        Removes missing or duplicate rows and fills numeric missing values.
+        Converts selected columns to numeric types after validating column names.
+        """
         if not self.check_data():
             return
 
@@ -116,7 +132,11 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def dataframe_operations(self):
-        """Performs mathematical, concatenate, merge, split and index operations."""
+        """
+        Performs arithmetic operations on numeric DataFrame columns.
+        Supports concatenating, merging, splitting, and re-indexing datasets.
+        Validates inputs and optionally saves split datasets as CSV files.
+        """
         if not self.check_data():
             return
 
@@ -241,7 +261,11 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def search_sort_filter(self):
-        """Searches, sorts and filters records in the dataset."""
+        """
+        Searches dataset records using values entered by the user.
+        Sorts records and filters data by numeric values or categories.
+        Validates columns and inputs before displaying matching records.
+        """
         if not self.check_data():
             return
 
@@ -317,7 +341,11 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def aggregates_statistics(self):
-        """Calculates statistics, grouped results, pivot tables and correlations."""
+        """
+        Calculates descriptive statistics for numeric dataset columns.
+        Supports grouped aggregation, transformations, pivot tables, and correlations.
+        Displays statistical results after validating the selected columns.
+        """
         if not self.check_data():
             return
 
@@ -406,7 +434,11 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def visualize_data(self):
-        """Creates charts using Matplotlib and Seaborn."""
+        """
+        Creates charts using Matplotlib and Seaborn from the loaded dataset.
+        Supports bar, line, scatter, pie, histogram, stack, heatmap, and box plots.
+        Validates selected columns and displays the generated visualization.
+        """
         if not self.check_data():
             return
 
@@ -559,7 +591,11 @@ class SalesDataAnalyzer:
             print("Unable to create plot:", e)
 
     def save_visualization(self):
-        """Saves the latest visualization as a PNG or JPEG image."""
+        """ 
+        Checks whether a visualization is available for saving.
+        Allows the user to choose a filename and PNG or JPEG format.
+        Saves the figure and handles invalid formats or file errors.
+        """
         if self.fig is None:
             print("Create a visualization first.")
             return
@@ -593,7 +629,11 @@ class SalesDataAnalyzer:
             print("Unable to save image:", e)
 
     def check_data(self):
-        """Checks whether a dataset has been loaded."""
+        """
+        Checks whether a dataset has been loaded into the analyzer.
+        Displays a warning message when no dataset is available.
+        Returns True if data exists and False otherwise.
+        """
         if self.df is None:
             print("Please load a dataset first.")
             return False
@@ -601,12 +641,20 @@ class SalesDataAnalyzer:
 
     @classmethod
     def project_name(cls):
-        """Displays the project name."""
+        """
+        Defines a class method for displaying project information.
+        Uses the class reference without requiring an instance-specific variable.
+        Prints the project name, Sales Data Analyzer.
+        """
         print("Sales Data Analyzer")
 
     @staticmethod
     def show_libraries():
-        """Displays the libraries used in this project."""
+        """
+        Defines a class method for displaying project information.
+        Uses the class reference without requiring an instance-specific variable.
+        Prints the project name, Sales Data Analyzer.
+        """
         print("Pandas, NumPy, Matplotlib and Seaborn")
 
     def show_documentation(self):
