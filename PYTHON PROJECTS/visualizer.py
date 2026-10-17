@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import inspect
 
 
 class SalesDataAnalyzer:
@@ -13,38 +12,27 @@ class SalesDataAnalyzer:
     """
 
     def __init__(self):
-        """
-        Initializes the analyzer with empty dataset variables.
-        Sets the primary and secondary DataFrames to None.
-        Initializes the figure variable for storing visualizations.
-        """
+        """Initializes the analyzer with empty dataset variables."""
         self.df = None
         self.other_df = None
         self.fig = None
 
     def load_dataset(self):
-        """
-        Accepts the CSV file path from the user.
-        Loads the dataset and displays its first five rows.
-        Handles file, parsing, permission, and other loading errors.
-        """
+        """Loads a CSV dataset and displays its first five rows."""
         path = input("Enter CSV file path: ").strip()
 
         try:
             self.df = pd.read_csv(path)
             print("Dataset loaded successfully!")
             print(self.df.head())
-        except (FileNotFoundError, pd.errors.ParserError, PermissionError) as e:
+        except (FileNotFoundError, pd.errors.ParserError,
+                PermissionError) as e:
             print("Unable to load dataset:", e)
         except Exception as e:
             print("Error:", e)
 
     def explore_data(self):
-        """
-        Displays options for exploring the loaded dataset.
-        Shows rows, columns, data types, information, and statistics.
-        Provides dataset dimensions and a menu to return to the main menu.
-        """
+        """Displays dataset rows, columns, types, information and statistics."""
         if not self.check_data():
             return
 
@@ -81,11 +69,7 @@ class SalesDataAnalyzer:
                 print("Invalid choice")
 
     def clean_data(self):
-        """
-        Displays missing values and provides data-cleaning options.
-        Removes missing or duplicate rows and fills numeric missing values.
-        Converts selected columns to numeric types after validating column names.
-        """
+        """Cleans missing values and duplicates and converts column types."""
         if not self.check_data():
             return
 
@@ -107,7 +91,9 @@ class SalesDataAnalyzer:
 
         elif ch == "2":
             cols = self.df.select_dtypes(include=np.number).columns
-            self.df[cols] = self.df[cols].fillna(self.df[cols].mean())
+            self.df[cols] = self.df[cols].fillna(
+                self.df[cols].mean()
+            )
             print("Numeric missing values filled.")
 
         elif ch == "3":
@@ -130,11 +116,7 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def dataframe_operations(self):
-        """
-        Performs arithmetic operations on numeric DataFrame columns.
-        Supports concatenating, merging, splitting, and re-indexing datasets.
-        Validates inputs and optionally saves split datasets as CSV files.
-        """
+        """Performs mathematical, concatenate, merge, split and index operations."""
         if not self.check_data():
             return
 
@@ -150,9 +132,11 @@ class SalesDataAnalyzer:
 
         if ch == "1":
             col = input("Enter numeric column: ")
+
             if col not in self.df.columns:
                 print("Column not found.")
                 return
+
             if not pd.api.types.is_numeric_dtype(self.df[col]):
                 print("Choose a numeric column.")
                 return
@@ -179,11 +163,13 @@ class SalesDataAnalyzer:
                     return
 
                 print(self.df.head())
+
             except ValueError:
                 print("Enter a valid number.")
 
         elif ch == "2":
             path = input("Enter second CSV path: ")
+
             try:
                 other = pd.read_csv(path)
                 self.df = pd.concat(
@@ -196,14 +182,18 @@ class SalesDataAnalyzer:
 
         elif ch == "3":
             path = input("Enter second CSV path: ")
+
             try:
                 other = pd.read_csv(path)
+
                 print("Common columns:", list(
                     set(self.df.columns) & set(other.columns)
                 ))
+
                 key = input("Enter common column for merge: ")
 
-                if key not in self.df.columns or key not in other.columns:
+                if (key not in self.df.columns or
+                        key not in other.columns):
                     print("Merge column not found in both files.")
                     return
 
@@ -212,22 +202,26 @@ class SalesDataAnalyzer:
                 )
                 print("DataFrames merged.")
                 print(self.df.head())
+
             except Exception as e:
                 print("Error:", e)
 
         elif ch == "4":
             col = input("Enter column to split by: ")
+
             if col not in self.df.columns:
                 print("Column not found.")
                 return
 
             value = input("Enter value to keep in first part: ")
             mask = self.df[col].astype(str) == value
+
             first = self.df[mask]
             second = self.df[~mask]
 
             print("First part:")
             print(first)
+
             print("Remaining part:")
             print(second)
 
@@ -247,11 +241,7 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def search_sort_filter(self):
-        """
-        Searches dataset records using values entered by the user.
-        Sorts records and filters data by numeric values or categories.
-        Validates columns and inputs before displaying matching records.
-        """
+        """Searches, sorts and filters records in the dataset."""
         if not self.check_data():
             return
 
@@ -267,20 +257,24 @@ class SalesDataAnalyzer:
 
         if ch == "1":
             col = input("Enter column: ")
+
             if col not in self.df.columns:
                 print("Column not found.")
                 return
 
             value = input("Enter search value: ")
+
             result = self.df[
                 self.df[col].astype(str).str.contains(
                     value, case=False, na=False
                 )
             ]
+
             print(result if not result.empty else "No matches found.")
 
         elif ch in ("2", "3"):
             col = input("Enter column to sort: ")
+
             if col not in self.df.columns:
                 print("Column not found.")
                 return
@@ -292,6 +286,7 @@ class SalesDataAnalyzer:
 
         elif ch == "4":
             col = input("Enter numeric column: ")
+
             if col not in self.df.columns:
                 print("Column not found.")
                 return
@@ -308,6 +303,7 @@ class SalesDataAnalyzer:
 
         elif ch == "5":
             col = input("Enter category column: ")
+
             if col not in self.df.columns:
                 print("Column not found.")
                 return
@@ -321,15 +317,12 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def aggregates_statistics(self):
-        """
-        Calculates descriptive statistics for numeric dataset columns.
-        Supports grouped aggregation, transformations, pivot tables, and correlations.
-        Displays statistical results after validating the selected columns.
-        """
+        """Calculates statistics, grouped results, pivot tables and correlations."""
         if not self.check_data():
             return
 
         nums = self.df.select_dtypes(include=np.number)
+
         if nums.empty:
             print("No numeric columns available.")
             return
@@ -341,8 +334,10 @@ class SalesDataAnalyzer:
         print("\nMaximum:\n", nums.max())
         print("\nStandard deviation:\n", nums.std())
         print("\nVariance:\n", nums.var())
-        print("\n25th, 50th and 75th percentiles:\n",
-              nums.quantile([0.25, 0.50, 0.75]))
+        print(
+            "\n25th, 50th and 75th percentiles:\n",
+            nums.quantile([0.25, 0.50, 0.75])
+        )
 
         print("""
 1. Group by a column
@@ -355,11 +350,13 @@ class SalesDataAnalyzer:
 
         if ch == "1":
             group = input("Enter grouping column: ")
+
             if group not in self.df.columns:
                 print("Column not found.")
                 return
 
             col = input("Enter numeric column: ")
+
             if col not in nums.columns:
                 print("Numeric column not found.")
                 return
@@ -392,8 +389,12 @@ class SalesDataAnalyzer:
                 return
 
             print(pd.pivot_table(
-                self.df, index=index, columns=columns,
-                values=values, aggfunc="sum", fill_value=0
+                self.df,
+                index=index,
+                columns=columns,
+                values=values,
+                aggfunc="sum",
+                fill_value=0
             ))
 
         elif ch == "4":
@@ -405,11 +406,7 @@ class SalesDataAnalyzer:
             print("Invalid choice")
 
     def visualize_data(self):
-        """
-        Creates charts using Matplotlib and Seaborn from the loaded dataset.
-        Supports bar, line, scatter, pie, histogram, stack, heatmap, and box plots.
-        Validates selected columns and displays the generated visualization.
-        """
+        """Creates charts using Matplotlib and Seaborn."""
         if not self.check_data():
             return
 
@@ -427,11 +424,14 @@ class SalesDataAnalyzer:
         ch = input("Enter choice: ")
 
         try:
-            numeric = self.df.select_dtypes(include=np.number).columns.tolist()
+            numeric = self.df.select_dtypes(
+                include=np.number
+            ).columns.tolist()
 
             if ch == "1":
                 col = input("Enter category column: ")
                 val = input("Enter numeric column: ")
+
                 if col not in self.df.columns or val not in numeric:
                     print("Invalid columns.")
                     return
@@ -444,6 +444,7 @@ class SalesDataAnalyzer:
 
             elif ch == "2":
                 col = input("Enter numeric column: ")
+
                 if col not in numeric:
                     print("Invalid numeric column.")
                     return
@@ -456,6 +457,7 @@ class SalesDataAnalyzer:
             elif ch == "3":
                 x = input("Enter X numeric column: ")
                 y = input("Enter Y numeric column: ")
+
                 if x not in numeric or y not in numeric:
                     print("Invalid numeric columns.")
                     return
@@ -467,6 +469,7 @@ class SalesDataAnalyzer:
 
             elif ch == "4":
                 col = input("Enter category column: ")
+
                 if col not in self.df.columns:
                     print("Column not found.")
                     return
@@ -477,6 +480,7 @@ class SalesDataAnalyzer:
 
             elif ch == "5":
                 col = input("Enter numeric column: ")
+
                 if col not in numeric:
                     print("Invalid numeric column.")
                     return
@@ -486,7 +490,9 @@ class SalesDataAnalyzer:
                 ax.set_xlabel(col)
 
             elif ch == "6":
-                cols = input("Enter numeric columns separated by commas: ")
+                cols = input(
+                    "Enter numeric columns separated by commas: "
+                )
                 cols = [c.strip() for c in cols.split(",")]
 
                 if not cols or any(c not in numeric for c in cols):
@@ -495,7 +501,8 @@ class SalesDataAnalyzer:
 
                 self.fig, ax = plt.subplots()
                 ax.stackplot(
-                    self.df.index, *[self.df[c].fillna(0) for c in cols],
+                    self.df.index,
+                    *[self.df[c].fillna(0) for c in cols],
                     labels=cols
                 )
                 ax.legend(loc="upper left")
@@ -507,12 +514,15 @@ class SalesDataAnalyzer:
 
                 self.fig, ax = plt.subplots()
                 sns.heatmap(
-                    self.df[numeric].corr(), annot=True,
-                    cmap="coolwarm", ax=ax
+                    self.df[numeric].corr(),
+                    annot=True,
+                    cmap="coolwarm",
+                    ax=ax
                 )
 
             elif ch == "8":
                 col = input("Enter numeric column: ")
+
                 if col not in numeric:
                     print("Invalid numeric column.")
                     return
@@ -526,7 +536,10 @@ class SalesDataAnalyzer:
                     return
 
                 cols = numeric[:4]
-                self.fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+                self.fig, axes = plt.subplots(
+                    2, 2, figsize=(10, 8)
+                )
+
                 for i, ax in enumerate(axes.flat):
                     if i < len(cols):
                         ax.hist(self.df[cols[i]].dropna(), bins=10)
@@ -546,16 +559,13 @@ class SalesDataAnalyzer:
             print("Unable to create plot:", e)
 
     def save_visualization(self):
-        """
-        Checks whether a visualization is available for saving.
-        Allows the user to choose a filename and PNG or JPEG format.
-        Saves the figure and handles invalid formats or file errors.
-        """
+        """Saves the latest visualization as a PNG or JPEG image."""
         if self.fig is None:
             print("Create a visualization first.")
             return
 
         name = input("Enter file name (without extension): ").strip()
+
         if not name:
             print("File name cannot be empty.")
             return
@@ -575,17 +585,15 @@ class SalesDataAnalyzer:
             return
 
         try:
-            self.fig.savefig(filename, format=fmt, bbox_inches="tight")
+            self.fig.savefig(
+                filename, format=fmt, bbox_inches="tight"
+            )
             print("Visualization saved as", filename)
         except Exception as e:
             print("Unable to save image:", e)
 
     def check_data(self):
-        """
-        Checks whether a dataset has been loaded into the analyzer.
-        Displays a warning message when no dataset is available.
-        Returns True if data exists and False otherwise.
-        """
+        """Checks whether a dataset has been loaded."""
         if self.df is None:
             print("Please load a dataset first.")
             return False
@@ -593,56 +601,52 @@ class SalesDataAnalyzer:
 
     @classmethod
     def project_name(cls):
-        """
-        Defines a class method for displaying project information.
-        Uses the class reference without requiring an instance-specific variable.
-        Prints the project name, Sales Data Analyzer.
-        """
+        """Displays the project name."""
         print("Sales Data Analyzer")
 
     @staticmethod
     def show_libraries():
-        """
-        Defines a static method for displaying project libraries.
-        Lists the main libraries used for data analysis and visualization.
-        Displays Pandas, NumPy, Matplotlib, and Seaborn.
-        """
+        """Displays the libraries used in this project."""
         print("Pandas, NumPy, Matplotlib and Seaborn")
 
     def show_documentation(self):
-        """
-        Displays documentation for the analyzer class and its methods.
-        Uses Python introspection to retrieve available method docstrings.
-        Prints each method name and its documentation in the terminal.
-        """
+        """Displays class and method documentation without using inspect."""
         print("\n" + "=" * 60)
         print("       SALES DATA ANALYZER - DOCUMENTATION")
         print("=" * 60)
 
         print("\nCLASS DOCUMENTATION:")
-        print(inspect.getdoc(self.__class__))
+        print(self.__class__.__doc__)
 
-        for name, method in inspect.getmembers(
-            self.__class__, predicate=inspect.isfunction
-        ):
-            if name.startswith("__") and name != "__init__":
-                continue
+        methods = [
+            self.__init__,
+            self.load_dataset,
+            self.explore_data,
+            self.clean_data,
+            self.dataframe_operations,
+            self.search_sort_filter,
+            self.aggregates_statistics,
+            self.visualize_data,
+            self.save_visualization,
+            self.check_data,
+            self.project_name,
+            self.show_libraries,
+            self.show_documentation,
+            self.run
+        ]
 
-            print(f"\n{'-' * 60}")
-            print(f"FUNCTION: {name}()")
+        for method in methods:
+            print("\n" + "-" * 60)
+            print("FUNCTION:", method.__name__ + "()")
             print("-" * 60)
-            print(inspect.getdoc(method) or "Documentation unavailable.")
+            print(method.__doc__ or "Documentation unavailable.")
 
         print("\n" + "=" * 60)
         print("       END OF DOCUMENTATION")
         print("=" * 60)
 
     def run(self):
-        """
-        Displays the main menu and manages user-selected operations.
-        Calls dataset, cleaning, analysis, visualization, and documentation methods.
-        Repeats the menu until the user chooses Exit.
-        """
+        """Displays the main menu and runs the selected operation."""
         while True:
             print("""
 ========================================
