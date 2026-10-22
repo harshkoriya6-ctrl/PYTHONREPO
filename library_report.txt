@@ -1,0 +1,70 @@
+E-LIBRARY DATA INSIGHTS REPORT
+================================
+
+Total Transactions:
+8
+
+Unique Books:
+6
+
+Unique Users:
+5
+
+Most Borrowed Book:
+Python in Practice
+
+Average Borrowing Duration:
+7.0
+
+Median Borrowing Duration:
+6.5
+
+Standard Deviation:
+2.92
+
+Busiest Day:
+Sunday
+
+Top 5 Books:
+Book Title
+Python in Practice        2
+The Silent River          2
+The Ember Crown           1
+A Brief Cosmic History    1
+The Silk Road             1
+
+Genre Distribution:
+Genre
+Technology    2
+Fiction       2
+Fantasy       1
+Science       1
+History       1
+Mystery       1
+
+Average Duration by Genre:
+Genre
+Fantasy       12.0
+Fiction        4.5
+History        9.0
+Mystery        3.0
+Science        6.0
+Technology     8.5
+
+Monthly Borrowings:
+Date
+2025-01    3
+2025-02    2
+2025-03    2
+2025-04    1
+Freq: M
+
+Frequent Borrowers:
+User ID
+U001    2
+U002    2
+U003    2
+
+Late Returns Count:
+3
+

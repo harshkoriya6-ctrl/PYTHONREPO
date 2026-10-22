@@ -1,0 +1,9 @@
+Transaction ID,Date,User ID,Book Title,Genre,Borrowing Duration (Days)
+T001,2025-01-05,U001,Python in Practice,Technology,7
+T002,2025-01-07,U002,The Silent River,Fiction,4
+T003,2025-01-10,U003,The Ember Crown,Fantasy,12
+T004,2025-02-02,U001,A Brief Cosmic History,Science,6
+T005,2025-02-15,U004,The Silk Road,History,9
+T006,2025-03-12,U002,The Vanishing Key,Mystery,3
+T007,2025-03-20,U005,Python in Practice,Technology,10
+T008,2025-04-02,U003,The Silent River,Fiction,5
