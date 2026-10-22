@@ -33,8 +33,7 @@ class LibraryDashboard:
             except Exception as e:
                 print(f"Error loading CSV file: {e}")
                 return False
-
-        # 1. Check required columns
+                
         required_cols = [
             "Transaction ID", "Date", "User ID",
             "Book Title", "Genre", "Borrowing Duration (Days)"
@@ -44,12 +43,11 @@ class LibraryDashboard:
                 print(f"Validation Error: Missing column '{col}'.")
                 return False
 
-        # 2. Clean data with a loop (skip missing, duplicate, or invalid values)
         valid_rows = []
         seen_ids = set()
 
         for _, row in raw_data.iterrows():
-            # Check for missing/blank values
+
             if row[required_cols].isnull().any() or any(str(row[c]).strip() == "" for c in required_cols):
                 continue
 
@@ -57,7 +55,6 @@ class LibraryDashboard:
             if trans_id in seen_ids:
                 continue
 
-            # Validate date and positive duration
             try:
                 date = pd.to_datetime(row["Date"])
                 duration = int(float(row["Borrowing Duration (Days)"]))
@@ -81,10 +78,8 @@ class LibraryDashboard:
             print("No valid records found.")
             return False
 
-        # Sort chronologically
         self.cleaned_data = self.cleaned_data.sort_values("Date").reset_index(drop=True)
 
-        # 3. Add computed columns
         self.cleaned_data["Late Return"] = np.where(
             self.cleaned_data["Borrowing Duration (Days)"] > 7, "Yes", "No"
         )
@@ -190,7 +185,6 @@ class LibraryDashboard:
 
         df = self.cleaned_data
 
-        # 1. Bar Chart: Top 5 Most Borrowed Books
         top_books = df["Book Title"].value_counts().head(5)
         plt.figure(figsize=(9, 4.5))
         sns.barplot(x=top_books.values, y=top_books.index, hue=top_books.index, palette="viridis", legend=False)
@@ -200,7 +194,6 @@ class LibraryDashboard:
         plt.savefig("top_5_books.png")
         plt.show()
 
-        # 2. Line Graph: Borrowing Trends Over Months
         monthly = df.groupby(df["Date"].dt.to_period("M")).size()
         plt.figure(figsize=(9, 4.5))
         plt.plot(monthly.index.astype(str), monthly.values, marker="o", color="royalblue", linewidth=2, label="Monthly Trend")
@@ -213,7 +206,6 @@ class LibraryDashboard:
         plt.savefig("monthly_borrowing_trend.png")
         plt.show()
 
-        # 3. Pie Chart: Distribution by Genre
         genre_counts = df["Genre"].value_counts()
         plt.figure(figsize=(6, 6))
         plt.pie(genre_counts.values, labels=genre_counts.index, autopct="%1.1f%%", startangle=140)
@@ -223,7 +215,6 @@ class LibraryDashboard:
         plt.savefig("genre_distribution.png")
         plt.show()
 
-        # 4. Heatmap: Activity by Weekday and Month
         heat_df = df.copy()
         heat_df["Day"] = pd.Categorical(
             heat_df["Date"].dt.day_name(),
@@ -254,12 +245,10 @@ if __name__ == "__main__":
         user_path = ""
     file_name = user_path if user_path else "library_transactions.csv"
 
-    # Initialize and Load Data
     dashboard = LibraryDashboard(file_name)
     if not dashboard.load_data():
         exit()
 
-    # Interactive Menu
     while True:
         print("\n" + "=" * 45)
         print("          DASHBOARD MAIN MENU")
@@ -316,3 +305,4 @@ if __name__ == "__main__":
 
         else:
             print("Invalid choice! Please select an option from 1 to 7.")
+
