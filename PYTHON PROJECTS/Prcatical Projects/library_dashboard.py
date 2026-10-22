@@ -3,13 +3,10 @@ E-Library Data Insights Dashboard
 Integrates Control Structures, OOP, NumPy, Pandas, Matplotlib, and Seaborn.
 """
 
-import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class LibraryDashboard:
@@ -24,18 +21,18 @@ class LibraryDashboard:
         if file_path:
             self.file_path = file_path
 
-        # If file is not found in current working directory, look in script's directory
-        if not os.path.exists(self.file_path):
-            fallback = os.path.join(SCRIPT_DIR, self.file_path)
-            if os.path.exists(fallback):
-                self.file_path = fallback
-
         try:
             raw_data = pd.read_csv(self.file_path)
             print(f"Successfully loaded '{self.file_path}'.")
-        except Exception as e:
-            print(f"Error loading CSV file: {e}")
-            return False
+        except Exception:
+            try:
+                alt_path = "PYTHON PROJECTS/Prcatical Projects/" + self.file_path
+                raw_data = pd.read_csv(alt_path)
+                self.file_path = alt_path
+                print(f"Successfully loaded '{self.file_path}'.")
+            except Exception as e:
+                print(f"Error loading CSV file: {e}")
+                return False
 
         # 1. Check required columns
         required_cols = [
@@ -173,8 +170,7 @@ class LibraryDashboard:
         if not stats:
             return
 
-        out_path = os.path.join(SCRIPT_DIR, output_file) if not os.path.isabs(output_file) else output_file
-        with open(out_path, "w", encoding="utf-8") as file:
+        with open(output_file, "w", encoding="utf-8") as file:
             file.write("=" * 50 + "\n        E-LIBRARY DATA INSIGHTS REPORT\n" + "=" * 50 + "\n\n")
             for key, value in stats.items():
                 file.write(f"{key}:\n")
@@ -185,7 +181,7 @@ class LibraryDashboard:
                 else:
                     file.write(f"{value}\n\n")
 
-        print(f"Report successfully saved to '{out_path}'.")
+        print(f"Report successfully saved to '{output_file}'.")
 
     def visualize(self):
         """Generates and saves 4 visualizations: Bar, Line, Pie, and Heatmap."""
@@ -201,7 +197,7 @@ class LibraryDashboard:
         plt.title("Top 5 Most Borrowed Books", fontsize=13, fontweight="bold")
         plt.xlabel("Borrowings Count")
         plt.tight_layout()
-        plt.savefig(os.path.join(SCRIPT_DIR, "top_5_books.png"))
+        plt.savefig("top_5_books.png")
         plt.show()
 
         # 2. Line Graph: Borrowing Trends Over Months
@@ -214,7 +210,7 @@ class LibraryDashboard:
         plt.grid(True, linestyle="--", alpha=0.5)
         plt.legend()
         plt.tight_layout()
-        plt.savefig(os.path.join(SCRIPT_DIR, "monthly_borrowing_trend.png"))
+        plt.savefig("monthly_borrowing_trend.png")
         plt.show()
 
         # 3. Pie Chart: Distribution by Genre
@@ -224,7 +220,7 @@ class LibraryDashboard:
         plt.title("Distribution of Books by Genre", fontsize=13, fontweight="bold")
         plt.legend(title="Genres", loc="upper right")
         plt.tight_layout()
-        plt.savefig(os.path.join(SCRIPT_DIR, "genre_distribution.png"))
+        plt.savefig("genre_distribution.png")
         plt.show()
 
         # 4. Heatmap: Activity by Weekday and Month
@@ -243,7 +239,7 @@ class LibraryDashboard:
         sns.heatmap(pivot, annot=True, fmt="d", cmap="YlGnBu", cbar_kws={"label": "Borrowings Count"})
         plt.title("Borrowing Activity (Day of Week vs Month)", fontsize=13, fontweight="bold")
         plt.tight_layout()
-        plt.savefig(os.path.join(SCRIPT_DIR, "borrowing_activity_heatmap.png"))
+        plt.savefig("borrowing_activity_heatmap.png")
         plt.show()
 
 

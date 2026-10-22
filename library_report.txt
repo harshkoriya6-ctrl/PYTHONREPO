@@ -1,5 +1,6 @@
-E-LIBRARY DATA INSIGHTS REPORT
-================================
+==================================================
+        E-LIBRARY DATA INSIGHTS REPORT
+==================================================
 
 Total Transactions:
 8
@@ -19,19 +20,28 @@ Average Borrowing Duration:
 Median Borrowing Duration:
 6.5
 
-Standard Deviation:
+Standard Deviation of Duration:
 2.92
 
 Busiest Day:
 Sunday
 
-Top 5 Books:
+Top 5 Most Borrowed Books:
 Book Title
 Python in Practice        2
 The Silent River          2
 The Ember Crown           1
 A Brief Cosmic History    1
 The Silk Road             1
+
+Total Borrowings per Book:
+Book Title
+Python in Practice        2
+The Silent River          2
+A Brief Cosmic History    1
+The Ember Crown           1
+The Silk Road             1
+The Vanishing Key         1
 
 Genre Distribution:
 Genre
